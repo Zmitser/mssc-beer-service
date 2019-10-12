@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1/beers")
 @RestController
 class BeerController {
 

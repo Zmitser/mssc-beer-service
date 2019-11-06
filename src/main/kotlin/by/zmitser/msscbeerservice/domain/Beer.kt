@@ -14,14 +14,14 @@ data class Beer(
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
-        val id: UUID,
+        val id: UUID?,
         @Version
-        val version: Long,
+        val version: Long?,
         @CreationTimestamp
         @Column(updatable = false)
-        val createdDate: Timestamp,
+        val createdDate: Timestamp?,
         @UpdateTimestamp
-        val lastModifiedDate: Timestamp,
+        val lastModifiedDate: Timestamp?,
         val beerName: String,
         val beerStyle: String,
         @Column(unique = true)
@@ -29,4 +29,7 @@ data class Beer(
         val price: BigDecimal,
         val minOnHand: Int,
         val quantityToBrew: Int) {
+
+    constructor(beerName: String, beerStyle: String, upc: Long, price: BigDecimal, quantityToBrew: Int, minOnHand: Int) :
+            this(null, null, null, null, beerName, beerStyle, upc, price, minOnHand, quantityToBrew)
 }

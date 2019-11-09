@@ -4,10 +4,7 @@ import com.github.pozo.KotlinBuilder
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.*
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Null
-import javax.validation.constraints.Positive
+import javax.validation.constraints.*
 
 @KotlinBuilder
 data class BeerDto(
@@ -18,8 +15,9 @@ data class BeerDto(
         @Null
         var createdDate: OffsetDateTime?,
         @Null
-        val lastModifiedDate: OffsetDateTime?,
+        var lastModifiedDate: OffsetDateTime?,
         @NotBlank
+        @Size(min = 3, max = 100)
         var beerName: String?,
         @NotNull
         var beerStyle: BeerStyleEnum?,
@@ -29,6 +27,7 @@ data class BeerDto(
         @NotNull
         @Positive
         var price: BigDecimal?,
+        @Positive
         var quantityOnHand: Int?) {
     constructor() : this(null, null, null, null, null, null, null, null, null)
 

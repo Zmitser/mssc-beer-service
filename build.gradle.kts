@@ -1,4 +1,18 @@
+import org.asciidoctor.gradle.AsciidoctorTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
+    }
+}
+
+apply {
+    plugin("org.asciidoctor.convert")
+}
 
 plugins {
     id("org.springframework.boot") version "2.1.9.RELEASE"
@@ -18,8 +32,10 @@ configurations {
         extendsFrom(developmentOnly)
     }
 }
+
 repositories {
     mavenCentral()
+    jcenter()
     maven {
         url = uri("https://jitpack.io")
     }
@@ -46,6 +62,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("junit", "junit")
     }
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -54,6 +72,18 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "1.8"
     }
 }
+
+tasks.withType<AsciidoctorTask> {
+    sourceDir = file("src/main/asciidoc")
+    outputDir = file("build/docs")
+    attributes(
+            mapOf(
+                    "snippets" to file("build/generated-snippets")
+            )
+
+    )
+}
+
 
 tasks.test {
     useJUnitPlatform()

@@ -1,6 +1,6 @@
 package by.zmitser.msscbeerservice.bootstrap
 
-import by.zmitser.msscbeerservice.domain.Beer
+import by.zmitser.msscbeerservice.domain.BeerBuilder
 import by.zmitser.msscbeerservice.repository.BeerRepository
 import mu.KLogger
 import mu.KotlinLogging
@@ -20,8 +20,22 @@ class BeerLoader(val beerRepository: BeerRepository) : CommandLineRunner {
 
     private fun loadBeerObjects() {
         if (beerRepository.count() == 0L) {
-            beerRepository.save(Beer("Mango Bobs", "IPA", 333000000001L, BigDecimal("12.95"), 200, 12))
-            beerRepository.save(Beer("Galaxy Cat", "PALE_ALE", 333000000002L, BigDecimal("11.95"), 200, 12))
+            beerRepository.save(BeerBuilder.builder()
+                    .setBeerName("Mango Bobs")
+                    .setBeerStyle("IPA")
+                    .setUpc(333000000001L)
+                    .setPrice(BigDecimal("12.95"))
+                    .setQuantityToBrew(200)
+                    .setMinOnHand(12)
+                    .create())
+            beerRepository.save(BeerBuilder.builder()
+                    .setBeerName("Galaxy Cat")
+                    .setBeerStyle("PALE_ALE")
+                    .setUpc(333000000002L)
+                    .setPrice(BigDecimal("11.95"))
+                    .setQuantityToBrew(200)
+                    .setMinOnHand(12)
+                    .create())
         }
 
         logger.info { beerRepository.count() }

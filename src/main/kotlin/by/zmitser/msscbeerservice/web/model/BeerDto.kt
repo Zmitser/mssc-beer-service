@@ -1,5 +1,6 @@
 package by.zmitser.msscbeerservice.web.model
 
+import com.github.pozo.KotlinBuilder
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.*
@@ -8,26 +9,27 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Null
 import javax.validation.constraints.Positive
 
+@KotlinBuilder
 data class BeerDto(
         @Null
-        val id: UUID?,
+        var id: UUID?,
         @Null
-        val version: Int?,
+        var version: Int?,
         @Null
-        val creationDate: OffsetDateTime?,
+        var createdDate: OffsetDateTime?,
         @Null
         val lastModifiedDate: OffsetDateTime?,
         @NotBlank
-        val beerName: String?,
+        var beerName: String?,
         @NotNull
-        val beerStyle: BeerStyleEnum?,
-        @NotNull
-        @Positive
-        val upc: Long?,
+        var beerStyle: BeerStyleEnum?,
         @NotNull
         @Positive
-        val price: BigDecimal?,
-        val quantityOnHand: Int?) {
+        var upc: Long?,
+        @NotNull
+        @Positive
+        var price: BigDecimal?,
+        var quantityOnHand: Int?) {
     constructor() : this(null, null, null, null, null, null, null, null, null)
 
     enum class BeerStyleEnum {

@@ -1,5 +1,6 @@
 package by.zmitser.msscbeerservice.domain
 
+import com.github.pozo.KotlinBuilder
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.UpdateTimestamp
@@ -9,6 +10,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
+@KotlinBuilder
 data class Beer(
         @Id
         @GeneratedValue(generator = "UUID")
@@ -30,6 +32,4 @@ data class Beer(
         val minOnHand: Int,
         val quantityToBrew: Int) {
 
-    constructor(beerName: String, beerStyle: String, upc: Long, price: BigDecimal, quantityToBrew: Int, minOnHand: Int) :
-            this(null, null, null, null, beerName, beerStyle, upc, price, minOnHand, quantityToBrew)
 }
